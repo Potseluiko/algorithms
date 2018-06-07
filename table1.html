@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Alg</title>
+	<style>
+		table {
+			border: 1px solid #ddd;
+			border-collapse: collapse;
+		}
+
+		td, th {
+			padding: 5px 10px;
+			border: 1px solid #ddd;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<table>
+			<thead>
+			<tr>
+				<th></th>
+				<th>секунда</th>
+				<th>минута</th>
+				<th>час</th>
+				<th>день</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr v-for="item in table">
+				<th>{{ item.name }}</th>
+				<td>{{ item.second }}</td>
+				<td>{{ item.minute }}</td>
+				<td>{{ item.hour }}</td>
+				<td>{{ item.day }}</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script>
+		(function () {
+			var powValue = Math.pow(10, 6);
+			var powText = ' * 10^6';
+			var time = {
+				second: 1,
+				minute:  60,
+				hour:  60 * 60,
+				day:  24 * 60 * 60 * Math.pow(10, 6),
+//				month:  30 * 24 * 60 * 60 * Math.pow(10, 6),
+//				year:  365 * 30 * 24 * 60 * 60 * Math.pow(10, 6),
+//				center:  100 * 365 * 30 * 24 * 60 * 60 * Math.pow(10, 6),
+			};
+
+			var table = [
+				{
+					name: 'lg(n)',
+					second: '2^t' + powText,
+					minute: '2^t' + powText,
+					hour: '2^t' + powText,
+					day: '2^t' + powText,
+				},
+				{
+					name: '√n',
+					second: Math.pow(time.second, 2) + ' * 10^12',
+					minute: Math.pow(time.minute, 2) + ' * 10^12',
+					hour: Math.pow(time.hour, 2) + ' * 10^12',
+					day: Math.pow(time.day, 2) + ' * 10^12',
+				},
+				{
+					name: 'n',
+					second: time.second + powText,
+					minute: time.minute + powText,
+					hour: time.hour + powText,
+					day: time.day + powText,
+				},
+				{
+					name: 'n * lg(n)',
+					second: ' ? ',
+					minute: ' ? ',
+					hour: ' ? ',
+					day: ' ? ',
+				},
+				{
+					name: 'n ^ 2',
+					second: Math.floor(Math.pow(time.second * powValue, 1/2)),
+					minute: Math.floor(Math.pow(time.minute * powValue, 1/2)),
+					hour: Math.floor(Math.pow(time.hour * powValue, 1/2)),
+					day: Math.floor(Math.pow(time.day * powValue, 1/2)),
+				},
+				{
+					name: 'n ^ 3',
+					second: Math.floor(Math.pow(time.second * powValue, 1/3)),
+					minute: Math.floor(Math.pow(time.minute * powValue, 1/3)),
+					hour: Math.floor(Math.pow(time.hour * powValue, 1/3)),
+					day: Math.floor(Math.pow(time.day * powValue, 1/3)),
+				},
+				{
+					name: '2 ^ n',
+					second: Math.floor(getBaseLog(2, time.second * powValue)),
+					minute: Math.floor(getBaseLog(2, time.minute * powValue)),
+					hour: Math.floor(getBaseLog(2, time.hour * powValue)),
+					day: Math.floor(getBaseLog(2, time.day * powValue)),
+				},
+				{
+					name: 'n!',
+					second: 9,
+					minute: 11,
+					hour: 12,
+					day: 13,
+				},
+			];
+
+			new Vue({
+				el: '#app',
+
+				data: function () {
+					return {
+						table: table
+					};
+				}
+			});
+
+			function getBaseLog(x, y) {
+				return Math.log(y) / Math.log(x);
+			}
+		}());
+	</script>
+</body>
+</html>

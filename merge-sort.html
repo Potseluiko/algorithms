@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Alg</title>
+	<style>
+
+	</style>
+</head>
+<body>
+	<div id="app">
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<script>
+		// Example
+		const arr = [];
+
+		for (let i = 0; i < 100; i++) {
+			arr[i] = getRandomNumber();
+		}
+
+		function getRandomNumber() {
+			return Math.round(Math.random() * 1000);
+		}
+
+		function isSorted(A) {
+			for (let i = 1; i < A.length; i++) {
+				if (A[i - 1] > A[i]) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		console.log('Start: ', JSON.parse(JSON.stringify(arr)));
+		mergeSort(arr, 0, arr.length - 1);
+		console.log('End: ', JSON.parse(JSON.stringify(arr)));
+		console.log('Is correct: ', isSorted(arr));
+
+
+
+
+		// Merge Sort
+		function mergeSort(A, p, r) {
+			if (p < r) {
+				const q = Math.floor((p + r) / 2);
+
+				mergeSort(A, p, q);
+				mergeSort(A, q + 1, r);
+				merge(A, p, q, r);
+			}
+		}
+
+		function merge(A, p, q, r) {
+			const L = A.slice(p, q + 1);
+			const R = A.slice(q + 1, r + 1);
+
+			L.push(Infinity);
+			R.push(Infinity);
+
+			let i = 0;
+			let j = 0;
+
+			for (let k = p; k <= r; k++) {
+				if (L[i] <= R[j]) {
+					A[k] = L[i];
+					i++;
+				} else {
+					A[k] = R[j];
+					j++;
+				}
+			}
+
+			return A;
+		}
+	</script>
+</body>
+</html>
